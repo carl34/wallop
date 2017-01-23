@@ -129,6 +129,9 @@ module Wallop
       l['Favorite'] = false
       if config['channel_logos'][l['GuideNumber']]
         l['LogoUrl'] = "#{request_url}/logos/#{config['channel_logos'][l['GuideNumber']]}"
+      elsif config['channel_logos'][l['GuideNumber'].sub('.','-')]
+        # To avoid toml key parsing errors, use hyphens instead of periods in config.toml logo configs (common for OTA channels)
+        l['LogoUrl'] = "#{request_url}/logos/#{config['channel_logos'][l['GuideNumber'].sub('.','-')]}"
       else
         l['LogoUrl'] = nil
       end
